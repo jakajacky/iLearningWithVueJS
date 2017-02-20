@@ -1,0 +1,182 @@
+<template>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <h1></h1>
+    <h2>Essential Links</h2>
+    <ul>
+      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
+      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
+      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
+      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
+      <li><a href="https://github.com/jakajacky" target="_blank">GitHub</a></li>
+    </ul>
+    <h2>Ecosystem</h2>
+    <ul>
+      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
+      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
+      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
+      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
+    </ul>
+    <!-- <h2>DynamicContent</h2>
+    <div>
+
+    </div> -->
+    <p v-if="isno>-1" name="un" style="color:#42b983">{{msg}}</p>
+    <br />
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <h1 style="line-height: 36px; color: #20A0FF">豆瓣电影排行榜</h1>
+        <el-input v-model="input" placeholder="请输入内容">
+          <el-button slot="append" icon="search"></el-button>
+        </el-input>
+      </div>
+      <ul>
+        <li v-for="article in articles">{{article.title}}</li>
+      </ul>
+      <br />
+
+      <!-- layout布局 row -->
+      <el-row type="flex" justify="center" align="middle">
+        <!-- column1 -->
+        <el-col :span="5">
+          <div>
+            <!-- autosize type="textarea" -->
+            <el-input v-model="input" placeholder="请输入内容">
+              <i slot="prepend" class="el-icon-plus"></i>
+            </el-input>
+          </div>
+        </el-col>
+
+        <!-- column2 -->
+        <el-col :span="2">
+          <div>
+            <el-button @click.native="clickBtn" type="primary">确定</el-button>
+          </div>
+        </el-col>
+      </el-row>
+
+    </el-card>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div>
+      <router-link to="/">版权</router-link>
+      <router-link to="/second">简介</router-link>
+    </div>
+    <router-view class="view"></router-view>
+  </div>
+</template>
+
+<script>
+import footerTemp from './component/footerTemp.vue'
+import routerTemp from './component/routerTemp.vue'
+import Vue from 'vue'
+
+export default {
+  name: 'app',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App',
+      content:"ABC",
+      isno:0,
+      input:'',
+      radio:'1',
+      articles:[],
+    }
+  },
+  methods: {
+    readyInput:function (event) {
+      // msg = content
+      // data.msg = event.target.value // 获取该事件event，target控件
+    },
+    clickBtn:function (event) {
+      alert(this.a)
+    }
+  },
+  mounted:function(){
+    this.$http.jsonp('https://api.douban.com/v2/movie/top250?count=10', {}, {
+      header: {
+
+      },
+      emulateJSON: true
+    }).then(function(response) {
+      // 这里是处理正确的回调
+      // console.log(this.articles);
+      this.articles = response.data.subjects
+    }, function(response) {
+      // 这里是处理错误的回调
+      console.log(response)
+    });
+
+  },
+  components:{footerTemp,routerTemp},
+
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
+h1, h2 {
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
+
+.el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+
+  .el-icon-d {
+
+  }
+
+  .clearfix {
+
+  }
+
+</style>
