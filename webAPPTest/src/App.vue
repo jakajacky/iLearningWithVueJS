@@ -25,7 +25,7 @@
     <br />
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <h1 style="line-height: 36px; color: #20A0FF">豆瓣电影排行榜</h1>
+        <h1 style="line-height: 36px;color:#20A0FF" v-bind:class="ischange">豆瓣电影排行榜</h1>
         <el-input v-model="input" placeholder="请输入内容">
           <el-button slot="append" icon="search"></el-button>
         </el-input>
@@ -83,6 +83,8 @@ export default {
       input:'',
       radio:'1',
       articles:[],
+      ischange:'head-title',
+      isClicked:false
     }
   },
   methods: {
@@ -91,6 +93,13 @@ export default {
       // data.msg = event.target.value // 获取该事件event，target控件
     },
     clickBtn:function (event) {
+      if (this.Clicked) {
+        this.ischange = 'head-title'
+      }
+      else {
+        this.ischange = 'head-title1'
+      }
+      this.Clicked = !this.Clicked
       alert(this.a)
     }
   },
@@ -177,6 +186,49 @@ a {
 
   .clearfix {
 
+  }
+
+  .head-title {
+
+  }
+
+  .head-title1 {
+    animation: myfirst 5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    -moz-animation: myfirst 5s;	/* Firefox */
+    -moz-animation-direction: alternate;
+    -moz-animation-iteration-count: infinite;
+    -webkit-animation: myfirst 5s;	/* Safari 和 Chrome */
+    -webkit-animation-direction: alternate;
+    -webkit-animation-iteration-count: infinite;
+    -o-animation: myfirst 5s;
+    -o-animation-direction: alternate;
+    -o-animation-iteration-count: infinite;
+  }
+
+  @keyframes myfirst
+  {
+  from {color:#20A0FF;}
+  to {color:cyan;}
+  }
+
+  @-moz-keyframes myfirst /* Firefox */
+  {
+  from {color:#20A0FF;}
+  to {color:cyan;}
+  }
+
+  @-webkit-keyframes myfirst /* Safari and Chrome */
+  {
+  from {color:#20A0FF;}
+  to {color:cyan;}
+  }
+
+  @-o-keyframes myfirst /* Opera */
+  {
+  from {color:#20A0FF;}
+  to {color:cyan;}
   }
 
 </style>
