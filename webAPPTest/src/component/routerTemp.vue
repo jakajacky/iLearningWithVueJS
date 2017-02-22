@@ -2,6 +2,7 @@
   <div id="routerTemp">
     <p id="author" v-for="(item,index) in List" v-if="index===0">iOS开发工程师=>web+APP之路</p>
     <p id="author" v-for="(item,index) in List" v-if="index===1">mail：jack_zhangx@126.com</p>
+    <el-button type="success" name="button" icon="share" v-on:click="onClick"></el-button>
   </div>
 </template>
 
@@ -14,7 +15,14 @@ export default {
             {title:'下一页'}
           ]
         }
+      },
+    methods: {
+      onClick: function() {
+        // 触发该监听事件  注意this的使用，教程中是vm.$emit
+        this.$emit('dataFromRouterTemp',"i'm john")
       }
+    }
+
     }
 </script>
 

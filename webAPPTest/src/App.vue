@@ -59,7 +59,7 @@
         <!-- column2 -->
         <el-col :span="2">
           <div>
-            <el-button @click.native="clickBtn" type="primary">确定</el-button>
+            <el-button @click.native="clickBtn" type="primary">确定{{content}}</el-button>
           </div>
         </el-col>
       </el-row>
@@ -73,7 +73,7 @@
       <router-link to="/">版权</router-link>
       <router-link to="/second">简介</router-link>
     </div>
-    <router-view class="view" v-bind:now="nowdate"></router-view>
+    <router-view class="view" v-bind:now="nowdate" v-on:dataFromRouterTemp="listenToRouterTemp"></router-view>
   </div>
 </template>
 
@@ -87,7 +87,7 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      content:"ABC",
+      content:"",
       isno:0,
       input:'',
       radio:'1',
@@ -120,6 +120,16 @@ export default {
       }
       this.Clicked = !this.Clicked
       alert(this.a)
+    },
+    // 监听的回调
+    listenToRouterTemp: function (msg) {
+      if (this.content === '') {
+        this.content = msg;
+      }
+      else {
+        this.content = '';
+      }
+
     }
   },
   mounted:function(){
