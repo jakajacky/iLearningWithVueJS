@@ -1,6 +1,6 @@
 <template>
   <div id="footerTemp" style="color:#42b983">
-    <footer>write by {{author|uppercase}} 2017-2 CopyRight@xqzh </footer>
+    <footer>written by {{author|uppercase}} {{now}} CopyRight@xqzh </footer>
   </div>
 </template>
 
@@ -10,7 +10,8 @@ export default {
     return {
       author:"john"
     }
-  }
+  },
+  props:['now'],
 }
 </script>
 

@@ -52,7 +52,7 @@
             <el-input v-model="input" placeholder="请输入内容" v-focus>
               <i slot="prepend" class="el-icon-plus"></i>
             </el-input>
-            <input type="text" name="a" value="dfa" v-focus>
+
           </div>
         </el-col>
 
@@ -73,7 +73,7 @@
       <router-link to="/">版权</router-link>
       <router-link to="/second">简介</router-link>
     </div>
-    <router-view class="view"></router-view>
+    <router-view class="view" v-bind:now="nowdate"></router-view>
   </div>
 </template>
 
@@ -93,7 +93,17 @@ export default {
       radio:'1',
       articles:[],
       ischange:'head-title',
-      isClicked:false
+      isClicked:false,
+      nowdate : '',
+    }
+  },
+  // 计算属性
+  computed:{
+    nowdate:function() {
+      var datee = new Date();
+      console.log('Time:'+datee.toLocaleDateString());
+
+      return datee.toLocaleDateString();
     }
   },
   methods: {
