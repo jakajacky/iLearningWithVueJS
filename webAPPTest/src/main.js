@@ -25,6 +25,15 @@ Vue.filter('uppercase', function(value) {
   return value.charAt(0).toUpperCase()+value.slice(1)
 });
 
+// 自定义指令
+Vue.directive('focus', {
+  // 当绑定元素插入到DOM中
+  inserted:function(el) {
+    el.focus()
+    console.log('自定义focus指令生效');
+  }
+});
+
 // 创建一个路由器实例
 // 并且配置路由规则
 const router = new VueRouter({

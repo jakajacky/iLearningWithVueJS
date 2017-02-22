@@ -49,9 +49,10 @@
         <el-col :span="5">
           <div>
             <!-- autosize type="textarea" -->
-            <el-input v-model="input" placeholder="请输入内容">
+            <el-input v-model="input" placeholder="请输入内容" v-focus>
               <i slot="prepend" class="el-icon-plus"></i>
             </el-input>
+            <input type="text" name="a" value="dfa" v-focus>
           </div>
         </el-col>
 
@@ -143,7 +144,15 @@ export default {
     }
   },
   components:{footerTemp,routerTemp},
-
+  // 自定义指令
+  // directives:{
+  //   'focus':{
+  //     inserted:function(el) {
+  //       el.focus();
+  //       console.log('focus开始了。。。。');
+  //     }
+  //   }
+  // },
 }
 </script>
 
