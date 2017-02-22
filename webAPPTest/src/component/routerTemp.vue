@@ -1,7 +1,7 @@
 <template>
   <div id="routerTemp">
-    <p id="author" v-for="(item,index) in List" v-if="index===0">iOS开发工程师=>web+APP之路</p>
-    <p id="author" v-for="(item,index) in List" v-if="index===1">mail：jack_zhangx@126.com</p>
+    <p id="author">iOS=>WebAPP之路</p>
+    <a href="https://github.com/jakajacky" target="_blank"><p id="author">GitHub</p></a>
     <el-button type="success" name="button" icon="share" v-on:click="onClick"></el-button>
   </div>
 </template>
