@@ -66,6 +66,10 @@ var vm = new Vue({
   }
 });
 
-vm.$watch('a',function(newVal, oldVal) {
+// 监听属性变化
+vm.$watch('a',function(oldVal, newVal) {
   console.log("成功加载数据---------");
+}, {
+  immediate: true // 立即触发回调
+
 })

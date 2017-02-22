@@ -25,10 +25,18 @@
     <br />
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <h1 style="line-height: 36px;color:#20A0FF" v-bind:class="ischange">豆瓣电影排行榜</h1>
-        <el-input v-model="input" placeholder="请输入内容">
-          <el-button slot="append" icon="search"></el-button>
-        </el-input>
+        <el-row type="flex" justify="center" align="middle">
+          <el-col :span="6" :push="3">
+            <h1 style="line-height: 36px;color:#20A0FF" v-bind:class="ischange">豆瓣电影排行榜</h1>
+          </el-col>
+          <el-col :span="6" :push="3">
+            <el-input v-model="input" placeholder="请输入内容">
+              <el-button slot="append" icon="search"></el-button>
+            </el-input>
+          </el-col>
+        </el-row
+
+
       </div>
       <ul>
         <li v-for="article in articles">{{article.title}}</li>
@@ -71,7 +79,7 @@
 <script>
 import footerTemp from './component/footerTemp.vue'
 import routerTemp from './component/routerTemp.vue'
-import Vue from 'vue'
+import Storage from './storage'
 
 export default {
   name: 'app',
@@ -113,11 +121,26 @@ export default {
       // 这里是处理正确的回调
       // console.log(this.articles);
       this.articles = response.data.subjects
+      this.$nextTick(function(){
+        console.log('DOM更新了'+this);
+      })
+
     }, function(response) {
       // 这里是处理错误的回调
       console.log(response)
     });
 
+  },
+  // 监听器
+  watch : {
+    articles: {
+      handler:function (oldVal, newVal) {
+        console.log('有新的数据被获取到，请持久化到本地');
+        // 持久化
+        Storage.save(this.articles)
+      },
+      deep:true
+    }
   },
   components:{footerTemp,routerTemp},
 
